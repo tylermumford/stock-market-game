@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
-import { GameStatus } from './GameStatus';
-import { isNumber } from 'util';
+import { Injectable } from '@angular/core'
+import { GameStatus } from './GameStatus'
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +25,7 @@ export class GameStateService {
   }
 
   pointsAtStakeInRound(round: number) {
-    const rolls = this._roundRolls[round];
+    const rolls = this._roundRolls[round]
     if (rolls === undefined)
       return 0
 
@@ -41,10 +40,10 @@ export class GameStateService {
         switch (roll) {
           default:
             sum += roll as number
-            break;
+            break
           case 'D':
             sum *= 2
-            break;
+            break
           case 7:
             sum = 0
             break scoring
@@ -73,7 +72,7 @@ export class GameStateService {
   private _roundRolls: RoundRolls = {}
 
   private rejectBadRollNumber(attemptedRoll: Roll) {
-    const r = attemptedRoll;
+    const r = attemptedRoll
     if (typeof r === 'number' && r < 2 || r > 12) {
       throw new Error(`It's impossible to roll a ${r} with two dice.`)
     }
