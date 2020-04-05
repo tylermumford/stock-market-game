@@ -87,6 +87,13 @@ describe('GameStateService', () => {
 
     it('should allow a D for rolling doubles after three rolls', () => {
       expect(() => service.setRollsForRound(1, [5, 5, 5, 'D'])).not.toThrow()
+      expect(() => service.setRollsForRound(1, [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 'D'])).not.toThrow()
+    })
+
+    it('should reject a D roll in the first three', () => {
+      expect(() => service.setRollsForRound(1, ['D'])).toThrow()
+      expect(() => service.setRollsForRound(1, [5, 'D'])).toThrow()
+      expect(() => service.setRollsForRound(1, [5, 5, 'D'])).toThrow()
     })
 
     it('should reject impossible roll numbers', () => {
@@ -119,6 +126,27 @@ describe('GameStateService', () => {
         service.setRollsForRound(1, [5, 5, 7])
         expect(service.pointsAtStakeInRound(1)).toBe(80)
       })
+
+      it('should score zero if seven is rolled after the first three rolls', () => {
+        service.setRollsForRound(1, [5, 5, 5, 7])
+        expect(service.pointsAtStakeInRound(1)).toBe(0)
+      })
+
+      it('should double the points if "D" is rolled', () => {
+        service.setRollsForRound(1, [5, 5, 5, 'D'])
+        expect(service.pointsAtStakeInRound(1)).toBe(30)
+      })
+
+      it('should correctly score miscellaneous scenarios', () => {
+        service.setRollsForRound(1, [7, 7, 7, 'D'])
+        expect(service.pointsAtStakeInRound(1)).toBe(420)
+        service.setRollsForRound(1, [5, 5, 5, 'D', 'D'])
+        expect(service.pointsAtStakeInRound(1)).toBe(60)
+        service.setRollsForRound(1, [5, 5, 5, 'D', 8, 9, 7])
+        expect(service.pointsAtStakeInRound(1)).toBe(0)
+      })
+
+      xit('should handle rolls after seven (somehow?)')
     })
 
     describe('Players going out', () => {

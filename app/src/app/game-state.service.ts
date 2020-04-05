@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GameStatus } from './GameStatus';
+import { isNumber } from 'util';
 
 @Injectable({
   providedIn: 'root'
@@ -29,19 +30,34 @@ export class GameStateService {
     if (rolls === undefined)
       return 0
 
-    return rolls
-      .map(n => (n === 7) ? 70 : n)
-      .reduce((prev, curr, i) => {
-        const prevN = prev as number
-        if (curr === 'D')
-          return prevN * 2
-        else
-          return prevN + curr
-      })
+    let sum = 0
+    scoring:
+    for (let i = 0; i < rolls.length; i++) {
+      const roll = rolls[i]
+      if (i <= 2) {
+        const rollN = roll as number
+        sum += (rollN === 7) ? 70 : rollN
+      } else {
+        switch (roll) {
+          default:
+            sum += roll as number
+            break;
+          case 'D':
+            sum *= 2
+            break;
+          case 7:
+            sum = 0
+            break scoring
+        }
+      }
+    }
+
+    return sum
   }
 
   setRollsForRound(round: number, rolls: Roll[]) {
     rolls.forEach(this.rejectBadRollNumber)
+    rolls.slice(0, 3).forEach(this.rejectDs)
     this._roundRolls[round] = rolls
   }
 
@@ -56,11 +72,16 @@ export class GameStateService {
 
   private _roundRolls: RoundRolls = {}
 
-  private rejectBadRollNumber(attemptedRoll: number) {
+  private rejectBadRollNumber(attemptedRoll: Roll) {
     const r = attemptedRoll;
-    if (r < 2 || r > 12) {
+    if (typeof r === 'number' && r < 2 || r > 12) {
       throw new Error(`It's impossible to roll a ${r} with two dice.`)
     }
+  }
+
+  private rejectDs(attemptedRoll: Roll) {
+    if (attemptedRoll === 'D')
+      throw new Error('A D is invalid in the first three rolls. Please enter the number instead.')
   }
 }
 
