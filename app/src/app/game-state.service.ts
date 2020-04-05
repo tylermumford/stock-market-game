@@ -17,7 +17,7 @@ export class GameStateService {
     if (this.playerCount > 0) {
       this._status = GameStatus.Playing
     } else {
-      throw new Error("Can't start playing with no players")
+      throw new Error("Can't start playing without any players.")
     }
   }
 
