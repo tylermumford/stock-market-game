@@ -15,9 +15,9 @@ export class GameSetupComponent {
 
   tryStartGame() {
     this.inputs.forEach(element => {
-      debugger;
-      if (element.nativeElement.value) {
-        this.game.addPlayer(element.nativeElement.value)
+      const playerName = element.nativeElement.value
+      if (playerName) {
+        this.game.addPlayer(playerName)
       }
     })
 
