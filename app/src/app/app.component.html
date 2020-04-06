@@ -1,3 +1,6 @@
 <h1>{{title}}</h1>
 
-<game-setup></game-setup>
+<game-setup *ngIf="isStatusPreparing"></game-setup>
+
+
+<game-ui *ngIf="isStatusPlaying"></game-ui>
