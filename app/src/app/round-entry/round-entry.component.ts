@@ -36,6 +36,10 @@ export class RoundEntryComponent implements OnDestroy {
       } catch (error) {
         this.errorMessage = error.message
       }
+
+      if (rolls[rolls.length - 1] !== null) {
+        this.expand()
+      }
     })
     this.subscriptions.push(s)
   }
@@ -45,4 +49,8 @@ export class RoundEntryComponent implements OnDestroy {
   }
 
   private subscriptions: Subscription[] = []
+
+  private expand() {
+    this.rollInputs.push(new FormControl(null))
+  }
 }
