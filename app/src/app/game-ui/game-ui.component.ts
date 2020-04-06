@@ -8,7 +8,13 @@ import { GameStateService } from '../game-state.service';
 })
 export class GameUiComponent implements OnInit {
 
-  constructor(private game: GameStateService) { }
+  twentyRounds = []
+
+  constructor(private game: GameStateService) {
+    for (let i = 1; i <= 20; i++) {
+      this.twentyRounds.push(i)
+    }
+  }
 
   ngOnInit(): void {
   }

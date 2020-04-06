@@ -1,8 +1,10 @@
-<section>
+<section class="left-section">
   <h2>Rounds</h2>
-
+  <div *ngFor="let round of twentyRounds">
+    <round-entry [round]="round"></round-entry>
+  </div>
 </section>
-<section>
+<section class="right-section">
   <h2>Scores</h2>
   <table class="score-table">
     <tbody>

@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GameSetupComponent } from './game-setup/game-setup.component';
 import { GameUiComponent } from './game-ui/game-ui.component';
+import { RoundEntryComponent } from './round-entry/round-entry.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GameSetupComponent,
-    GameUiComponent
+    GameUiComponent,
+    RoundEntryComponent
   ],
   imports: [
     BrowserModule,

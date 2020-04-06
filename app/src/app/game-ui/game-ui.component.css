@@ -5,3 +5,14 @@
 .score-table td {
   border: solid 1px gray;
 }
+
+@media(min-width: 700px) {
+  .left-section {
+    float: left;
+  }
+
+  .right-section {
+    float: right;
+    min-width: 275px;
+  }
+}
