@@ -37,7 +37,8 @@ export class RoundEntryComponent implements OnDestroy {
         this.errorMessage = error.message
       }
 
-      if (rolls[rolls.length - 1] !== null) {
+      const lastRollValue = rolls[rolls.length - 1]
+      if (lastRollValue !== null && lastRollValue !== '7') {
         this.expand()
       }
     })
