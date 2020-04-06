@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GameUiComponent } from './game-ui.component';
+import { RoundEntryComponent } from '../round-entry/round-entry.component';
 
 describe('GameUiComponent', () => {
   let component: GameUiComponent;
@@ -8,7 +9,7 @@ describe('GameUiComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GameUiComponent ]
+      declarations: [ GameUiComponent, RoundEntryComponent ]
     })
     .compileComponents();
   }));

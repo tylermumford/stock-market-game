@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RoundEntryComponent } from './round-entry.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('RoundEntryComponent', () => {
   let component: RoundEntryComponent;
@@ -8,7 +9,8 @@ describe('RoundEntryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RoundEntryComponent ]
+      declarations: [ RoundEntryComponent ],
+      imports: [ ReactiveFormsModule ]
     })
     .compileComponents();
   }));

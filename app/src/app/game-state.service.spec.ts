@@ -85,6 +85,25 @@ describe('GameStateService', () => {
       expect(() => service.setRollsForRound(1, [12])).not.toThrow()
     })
 
+    it('should convert string rolls', () => {
+      service.setRollsForRound(1, ['5'])
+      expect(service.pointsAtStakeInRound(1)).toBe(5)
+    })
+
+    it('should disregard null rolls', () => {
+      expect(() => service.setRollsForRound(1, [null])).not.toThrow()
+      expect(service.pointsAtStakeInRound(1)).toBe(0)
+      service.setRollsForRound(1, [5, null])
+      expect(service.pointsAtStakeInRound(1)).toBe(5)
+    })
+
+    it('should disregard empty string rolls', () => {
+      expect(() => service.setRollsForRound(1, [''])).not.toThrow()
+      expect(service.pointsAtStakeInRound(1)).toBe(0)
+      service.setRollsForRound(1, [5, ''])
+      expect(service.pointsAtStakeInRound(1)).toBe(5)
+    })
+
     it('should allow a D for rolling doubles after three rolls', () => {
       expect(() => service.setRollsForRound(1, [5, 5, 5, 'D'])).not.toThrow()
       expect(() => service.setRollsForRound(1, [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 'D'])).not.toThrow()

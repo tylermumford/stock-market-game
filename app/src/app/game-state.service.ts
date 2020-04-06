@@ -44,7 +44,12 @@ export class GameStateService {
     return this.pointsForRolls(rolls)
   }
 
-  setRollsForRound(round: number, rolls: Roll[]) {
+  /**
+   * Accepts rolls as strings or numbers, but throws an Error if they are invalid.
+   * They must be 'D' or numbers 2–12. Silently ignores nulls and empty strings.
+   */
+  setRollsForRound(round: number, rolls: any[]) {
+    rolls = rolls.map(this.tryConvertToRoll)
     rolls.forEach(this.rejectBadRollNumber)
     rolls.slice(0, 3).forEach(this.rejectDs)
     this._roundRolls[round] = rolls
@@ -71,6 +76,21 @@ export class GameStateService {
   private _scoresByRound: ScoresByRound = {}
 
   private _roundRolls: RoundRolls = {}
+
+  private tryConvertToRoll(rawRoll: unknown): Roll {
+    if (rawRoll === 'D') {
+      return 'D'
+    } else if (rawRoll === null || rawRoll === '') {
+      return null
+    } else if (typeof rawRoll === 'string') {
+      const r = Number.parseInt(rawRoll)
+      if (!Number.isNaN(r))
+        return r
+    } else if (typeof rawRoll === 'number') {
+      return rawRoll
+    }
+    throw new Error('Invalid roll: Rolls must be D or a whole number.')
+  }
 
   private rejectBadRollNumber(attemptedRoll: Roll) {
     const r = attemptedRoll
@@ -123,7 +143,7 @@ export class GameStateService {
   }
 }
 
-type Roll = number | 'D'
+export type Roll = number | 'D'
 
 interface RoundRolls {
   [round: number]: Roll[]

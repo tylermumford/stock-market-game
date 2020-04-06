@@ -1,1 +1,18 @@
-<p>round-entry works!</p>
+<h3>Round {{round}}</h3>
+<p><strong>Points at stake: {{pointsAtStake}}</strong></p>
+<table [formGroup]="group">
+  <thead>
+    <tr>
+      <th>Roll #</th>
+      <th>Rolled</th>
+    </tr>
+  </thead>
+  <tbody formArrayName="rollInputs">
+    <tr *ngFor="let roll of rollInputs.controls; index as index">
+      <td>{{index + 1}}</td>
+      <td><input type="text" [formControlName]="index"></td>
+      <!-- Not sure how best to calculate intermediate point values -->
+    </tr>
+  </tbody>
+</table>
+<p *ngIf="errorMessage">{{errorMessage}}</p>
