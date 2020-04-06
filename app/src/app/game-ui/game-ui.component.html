@@ -1,1 +1,15 @@
-<p>game-ui works!</p>
+<section>
+  <h2>Rounds</h2>
+
+</section>
+<section>
+  <h2>Scores</h2>
+  <table class="score-table">
+    <tbody>
+      <tr *ngFor="let score of scores">
+        <td>{{score.playerName}}</td>
+        <td>{{score.points}} points</td>
+      </tr>
+    </tbody>
+  </table>
+</section>

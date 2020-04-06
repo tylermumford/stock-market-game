@@ -1,0 +1,7 @@
+.score-table {
+  width: 100%;
+}
+
+.score-table td {
+  border: solid 1px gray;
+}

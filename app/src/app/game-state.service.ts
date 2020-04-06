@@ -9,6 +9,12 @@ export class GameStateService {
   get playerCount() { return this.players.length }
   get status() { return this._status }
   get scores() { return this._scores }
+  get scoresArray(): {playerName: string, points: number}[] {
+    const players = this.players.slice()
+    const result = []
+    players.forEach(playerName => result.push({ playerName: playerName, points: this.scores[playerName] }))
+    return result
+  }
   get currentRound() { return 1 }
 
   addPlayer(name: string) {
