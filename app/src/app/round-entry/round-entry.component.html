@@ -5,13 +5,17 @@
     <tr>
       <th>Roll #</th>
       <th>Rolled</th>
+      <th *ngFor="let playerName of players">{{playerName}}</th>
     </tr>
   </thead>
-  <tbody formArrayName="rollInputs">
-    <tr *ngFor="let roll of rollInputs.controls; index as index">
-      <td>{{index + 1}}</td>
-      <td><input type="text" [formControlName]="index"></td>
+  <tbody formArrayName="rows">
+    <tr *ngFor="let roll of rows.controls; index as iRow" [formArrayName]="iRow">
+      <td>{{iRow + 1}}</td>
+      <td><input type="text" [formControlName]="0" class="roll-input"></td>
       <!-- Not sure how best to calculate intermediate point values -->
+      <td *ngFor="let playerName of players; index as iCheckbox">
+        <input type="checkbox" name="" id="" [formControlName]="iCheckbox">
+      </td>
     </tr>
   </tbody>
 </table>

@@ -14,22 +14,22 @@ export class RoundEntryComponent implements OnDestroy {
   @Input() round: number
 
   get pointsAtStake() { return this.game.pointsAtStakeInRound(this.round) }
+  get players() { return this.game.players }
 
   group = new FormGroup({
-    rollInputs: new FormArray([
-      new FormControl(null),
-      new FormControl(null),
-      new FormControl(null),
-      new FormControl(null),
-    ])
+    rows: new FormArray([])
   })
 
-  get rollInputs(): FormArray { return this.group.get('rollInputs') as FormArray }
+  get rows(): FormArray { return this.group.get('rows') as FormArray }
 
   errorMessage = ''
 
   constructor(private game: GameStateService) {
-    const s = this.rollInputs.valueChanges.subscribe(rolls => {
+    this.build()
+
+    const s = this.rows.valueChanges.subscribe((compoundTableValue: any[]) => {
+      const rolls: string[] = []
+      compoundTableValue.forEach((compoundRowValue: any[]) => rolls.push(compoundRowValue[0]))
       try {
         this.game.setRollsForRound(this.round, rolls)
         this.errorMessage = ''
@@ -50,7 +50,19 @@ export class RoundEntryComponent implements OnDestroy {
 
   private subscriptions: Subscription[] = []
 
+  private build() {
+    for (let i = 0; i < 4; i++) {
+      this.expand()
+    }
+  }
+
   private expand() {
-    this.rollInputs.push(new FormControl(null))
+    const rowControls = new FormArray([
+      new FormControl(null) // One for the dice roll
+    ])
+    this.players.forEach(() => {
+      rowControls.push(new FormControl(null)) // One for each player's checkbox
+    });
+    this.rows.push(rowControls)
   }
 }

@@ -6,11 +6,12 @@ import { GameStatus } from './GameStatus'
 })
 export class GameStateService {
 
-  get playerCount() { return this.players.length }
+  get playerCount() { return this._players.length }
+  get players() { return this._players }
   get status() { return this._status }
   get scores() { return this._scores }
   get scoresArray(): {playerName: string, points: number}[] {
-    const players = this.players.slice()
+    const players = this._players.slice()
     const result = []
     players.forEach(playerName => result.push({ playerName: playerName, points: this.scores[playerName] }))
     return result
@@ -18,7 +19,7 @@ export class GameStateService {
   get currentRound() { return 1 }
 
   addPlayer(name: string) {
-    this.players.push(name)
+    this._players.push(name)
     this.scores[name] = 0
   }
 
@@ -27,7 +28,7 @@ export class GameStateService {
       this._status = GameStatus.Playing
       for (let r = 1; r <= 20; r++) {
         this._scoresByRound[r] = {}
-        this.players.forEach(playerName => {
+        this._players.forEach(playerName => {
           this._scoresByRound[r][playerName] = 0
         })
       }
@@ -71,7 +72,7 @@ export class GameStateService {
   }
 
   private _status = GameStatus.Preparing
-  private players: string[] = []
+  private _players: string[] = []
   private _scores: {[player: string]: number} = {}
   private _scoresByRound: ScoresByRound = {}
 
@@ -132,11 +133,11 @@ export class GameStateService {
 
   private recalculateTotalScores() {
     this._scores = {}
-    this.players.forEach(playerName => this._scores[playerName] = 0)
+    this._players.forEach(playerName => this._scores[playerName] = 0)
 
     for (let round = 1; round <= 20; round++) {
       const scoresForRound = this._scoresByRound[round]
-      this.players.forEach(playerName => {
+      this._players.forEach(playerName => {
         this._scores[playerName] += scoresForRound[playerName]
       })
     }
