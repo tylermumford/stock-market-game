@@ -56,7 +56,7 @@ describe('GameStateService', () => {
     })
   })
 
-  describe('Starting the first round', () => {
+  describe('Gameplay', () => {
     const p1 = 'Player One', p2 = 'Player Two'
 
     beforeEach(() => {
@@ -160,6 +160,34 @@ describe('GameStateService', () => {
       it('should accept going out after three rolls', () => {
         service.setRollsForRound(1, [3, 5, 9])
         expect(() => service.setPlayerOut(p1, 1, 2)).not.toThrow()
+      })
+
+      it('should score a player after they go out', () => {
+        service.setRollsForRound(1, [5, 5, 5])
+        service.setPlayerOut(p1, 1, 2)
+        expect(service.scores[p1]).toBe(15)
+      })
+
+      it('should exclude points from after a player goes out', () => {
+        service.setRollsForRound(1, [5, 5, 5, 10])
+        service.setPlayerOut(p1, 1, 2)
+        expect(service.scores[p1]).toBe(15)
+      })
+
+      it('should allow a player to be marked as back in', () => {
+        service.setRollsForRound(1, [5, 5, 5, 10])
+        service.setPlayerOut(p1, 1, 2)
+        service.setPlayerBackIn(p1, 1)
+        expect(service.scores[p1]).toBe(0)
+      })
+    })
+
+    describe('Scoring multiple rounds', () => {
+      it('should score rounds separately', () => {
+        service.setRollsForRound(1, [5, 5, 5])
+        service.setRollsForRound(2, [8, 8, 8])
+        expect(service.pointsAtStakeInRound(1)).toBe(15)
+        expect(service.pointsAtStakeInRound(2)).toBe(24)
       })
     })
   })
