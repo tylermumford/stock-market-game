@@ -1,3 +1,11 @@
 .roll-input {
   max-width: 8ch;
 }
+
+.grayscale {
+  filter: grayscale()
+}
+
+.center {
+  text-align: center;
+}
