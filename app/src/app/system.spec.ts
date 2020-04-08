@@ -3,3 +3,9 @@ describe('parseInt', () => {
     expect(Number.parseInt('')).toBeNaN()
   })
 })
+
+describe('toUpperCase', () => {
+  it('shouldn\'t change numbers', () => {
+    expect('8'.toUpperCase()).toBe('8')
+  })
+})

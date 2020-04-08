@@ -29,7 +29,10 @@ export class RoundEntryComponent implements OnDestroy {
 
     const s = this.rows.valueChanges.subscribe((compoundTableValue: any[]) => {
       const rolls: string[] = []
-      compoundTableValue.forEach((compoundRowValue: any[]) => rolls.push(compoundRowValue[0]))
+      compoundTableValue.forEach((compoundRowValue: any[]) => {
+        rolls.push(compoundRowValue[0]?.toUpperCase() ?? compoundRowValue[0])
+      })
+
       try {
         this.game.setRollsForRound(this.round, rolls)
         this.errorMessage = ''

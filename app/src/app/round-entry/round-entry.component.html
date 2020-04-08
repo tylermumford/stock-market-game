@@ -12,6 +12,11 @@
       <td>{{iRow + 1}}</td>
       <td><input type="text" [formControlName]="0" class="roll-input"></td>
       <!-- Not sure how best to calculate intermediate point values -->
+
+
+      <!-- Up next: Let players lock their score -->
+
+
       <td *ngFor="let playerName of players; index as iCheckbox">
         <input type="checkbox" name="" id="" [formControlName]="iCheckbox" tabindex="-1">
       </td>
