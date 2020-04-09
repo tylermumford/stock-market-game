@@ -23,6 +23,14 @@
 
   <span class="grayscale center col2">⏬</span>
 
+  <button *ngFor="let playerName of players; index as iPlayer"
+    (click)="setPlayerBackIn(playerName)"
+    [style.grid-row]="last"
+    [style.grid-column]="2 + iPlayer + 1"
+    title="Go back in">
+    ⤴️
+  </button>
+
 </section>
 
 <p *ngIf="errorMessage">{{errorMessage}}</p>

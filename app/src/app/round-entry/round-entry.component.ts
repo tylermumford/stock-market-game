@@ -41,6 +41,11 @@ export class RoundEntryComponent implements OnDestroy {
     this.subscriptions.push(s)
   }
 
+  setPlayerBackIn(playerName: string) {
+    const player = this.roundForm.get(playerName)
+    player.setValue(null)
+  }
+
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe())
   }
