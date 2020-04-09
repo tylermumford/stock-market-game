@@ -33,23 +33,10 @@ export class RoundEntryComponent implements OnDestroy {
   constructor(private game: GameStateService) {
     this.build()
 
-    const s = this.diceRolls.valueChanges.subscribe((diceRollValues: any[]) => {
-      const rolls: string[] = []
-      diceRollValues.forEach(diceRollValue => {
-        rolls.push(diceRollValue?.toUpperCase() ?? diceRollValue)
-      })
-
-      try {
-        this.game.setRollsForRound(this.round, rolls)
-        this.errorMessage = ''
-      } catch (error) {
-        this.errorMessage = error.message
-      }
-
-      const lastRollValue = rolls[rolls.length - 1]
-      if (lastRollValue !== null && lastRollValue !== '7') {
-        this.expand()
-      }
+    const s = this.roundForm.valueChanges.subscribe(formValue => {
+      this.updateRolls(formValue.diceRolls)
+      this.autoExpand(formValue)
+      this.updatePlayersOut(formValue)
     })
     this.subscriptions.push(s)
   }
@@ -69,5 +56,37 @@ export class RoundEntryComponent implements OnDestroy {
 
   private expand() {
     this.diceRolls.push(new FormControl())
+  }
+
+  private updateRolls(diceRollValues: any[]) {
+    const rolls: string[] = []
+    diceRollValues.forEach(diceRollValue => {
+      rolls.push(diceRollValue?.toUpperCase() ?? diceRollValue)
+    })
+
+    try {
+      this.game.setRollsForRound(this.round, rolls)
+      this.errorMessage = ''
+    } catch (error) {
+      this.errorMessage = error.message
+    }
+  }
+
+  private autoExpand(formValue: any) {
+    const lastRollValue = formValue.diceRolls[formValue.diceRolls.length - 1]
+    if (lastRollValue !== null && lastRollValue !== '7') {
+      this.expand()
+    }
+  }
+
+  private updatePlayersOut(formValue: any) {
+    this.players.forEach(playerName => {
+      const outIndex: number = formValue[playerName]
+      if (outIndex === null) {
+        this.game.setPlayerBackIn(playerName, this.round)
+      } else {
+        this.game.setPlayerOut(playerName, this.round, outIndex)
+      }
+    });
   }
 }
