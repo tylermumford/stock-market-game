@@ -25,7 +25,7 @@
 
   <button *ngFor="let playerName of players; index as iPlayer"
     (click)="setPlayerBackIn(playerName)"
-    [style.grid-row]="last"
+    style.grid-row="last"
     [style.grid-column]="2 + iPlayer + 1"
     title="Go back in">
     ⤴️
