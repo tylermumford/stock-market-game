@@ -6,13 +6,32 @@
   border: solid 1px gray;
 }
 
+.floating-section {
+  bottom: 0.5em;
+  background: white;
+  box-shadow: 0 0 0.5em 0 rgba(0, 128, 128, 0.56);
+  box-sizing: border-box;
+  border-radius: 1em;
+  margin-top: 1em;
+  padding: 1em;
+  position: sticky;
+  width: 100%;
+}
+
+.mt0 {
+  margin-top: 0;
+}
+
 @media(min-width: 700px) {
   .left-section {
     float: left;
   }
-
-  .right-section {
-    float: right;
+  .floating-section {
+    bottom: unset;
+    margin-top: 0;
     min-width: 275px;
+    position: fixed;
+    right: 0.5em;
+    width: unset;
   }
 }
