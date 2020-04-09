@@ -1,32 +1,28 @@
 <h3>Round {{round}} — {{pointsAtStake}} points at stake</h3>
-<table [formGroup]="group">
-  <thead>
-    <tr>
-      <th>Roll #</th>
-      <th>Rolled</th>
-      <th *ngFor="let playerName of players">{{playerName}}</th>
-    </tr>
-  </thead>
-  <tbody formArrayName="rows">
-    <tr *ngFor="let roll of rows.controls; index as iRow" [formArrayName]="iRow">
-      <td>{{iRow + 1}}</td>
-      <td><input type="text" [formControlName]="0" class="roll-input"></td>
-      <!-- Not sure how best to calculate intermediate point values -->
 
+<section [formGroup]="roundForm" class="control-grid" [style.--columnCount]="columnCount">
+  <span class="column-header">Roll #</span>
+  <span class="column-header center">Rolled</span>
+  <span class="column-header" *ngFor="let playerName of players">{{playerName}}</span>
 
-      <!-- Up next: Let players lock their score -->
+  <ng-container *ngFor="let _ of diceRolls.controls; index as iRow" formArrayName="diceRolls">
+    <span class="cell col1">{{iRow + 1}}</span>
+    <div class="roll-input col2" >
+      <input type="text" class="roll-input" [formControlName]="iRow">
+    </div>
+  </ng-container>
+  <ng-container *ngFor="let _ of diceRolls.controls; index as iRow">
+    <input type="radio"
+      *ngFor="let playerName of players; index as iPlayer"
+      [value]="iRow"
+      tabindex="-1"
+      [style.grid-row]="1 + iRow + 1"
+      [style.grid-column]="2 + iPlayer + 1"
+      [formControlName]="playerName">
+  </ng-container>
 
+  <span class="grayscale center col2">⏬</span>
 
-      <td *ngFor="let playerName of players; index as iCheckbox">
-        <input type="checkbox" name="" id="" [formControlName]="iCheckbox" tabindex="-1">
-      </td>
-    </tr>
-  </tbody>
-  <tfoot>
-    <tr>
-      <td></td>
-      <td class="grayscale center">⏬</td>
-    </tr>
-  </tfoot>
-</table>
+</section>
+
 <p *ngIf="errorMessage">{{errorMessage}}</p>
