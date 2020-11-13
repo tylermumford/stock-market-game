@@ -20,6 +20,7 @@ export class RoundEntryComponent implements OnDestroy {
 
   roundForm = new FormGroup({
     diceRolls: new FormArray([])
+    // FormControls will be added for each player in the `build` method.
   })
 
   get diceRolls(): FormArray { return this.roundForm.get('diceRolls') as FormArray }
@@ -99,12 +100,14 @@ export class RoundEntryComponent implements OnDestroy {
 
   private updatePlayersOut(formValue: any) {
     this.players.forEach(playerName => {
-      const outIndex: number = formValue[playerName]
-      if (outIndex === null) {
+      const roundPlayerWentOut: number = formValue[playerName]
+      const isPlayerStillIn = roundPlayerWentOut === null
+
+      if (isPlayerStillIn) {
         this.game.setPlayerBackIn(playerName, this.round)
       } else {
-        this.game.setPlayerOut(playerName, this.round, outIndex)
+        this.game.setPlayerOut(playerName, this.round, roundPlayerWentOut)
       }
-    });
+    })
   }
 }
