@@ -169,6 +169,10 @@ describe('GameStateService', () => {
     })
 
     describe('Players going out', () => {
+      it('should report that players start "in"', () => {
+        expect(service.playerIsIn(p1, 1)).toBeTrue();
+      })
+
       it('should reject going out "in the future"', () => {
         expect(() => service.setPlayerOut(p1, 1, 0)).toThrow()
         service.setRollsForRound(1, [3, 5, 9])
@@ -179,6 +183,13 @@ describe('GameStateService', () => {
       it('should accept going out after three rolls', () => {
         service.setRollsForRound(1, [3, 5, 9])
         expect(() => service.setPlayerOut(p1, 1, 2)).not.toThrow()
+      })
+
+      it('should report that a player has gone out', () => {
+        service.setRollsForRound(1, [3, 5, 9])
+        service.setPlayerOut(p1, 1, 2)
+
+        expect(service.playerIsIn(p1, 1)).toBeFalse()
       })
 
       it('should score a player after they go out', () => {

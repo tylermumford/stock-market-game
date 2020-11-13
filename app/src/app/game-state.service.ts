@@ -29,7 +29,7 @@ export class GameStateService {
       for (let r = 1; r <= 20; r++) {
         this._scoresByRound[r] = {}
         this._players.forEach(playerName => {
-          this._scoresByRound[r][playerName] = 0
+          this._scoresByRound[r][playerName] = null
         })
       }
     } else {
@@ -67,8 +67,12 @@ export class GameStateService {
   }
 
   setPlayerBackIn(playerName: string, round: number) {
-    this._scoresByRound[round][playerName] = 0
+    this._scoresByRound[round][playerName] = null
     this.recalculateTotalScores()
+  }
+
+  playerIsIn(playerName: string, round: number) {
+    return this._scoresByRound[round][playerName] == null
   }
 
   private _status = GameStatus.Preparing
