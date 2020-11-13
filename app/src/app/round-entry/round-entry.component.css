@@ -11,6 +11,7 @@
 .roll-input {
   max-width: 8ch;
   place-self: center;
+  text-transform: uppercase;
 }
 
 .grayscale {
