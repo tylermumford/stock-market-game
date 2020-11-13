@@ -6,6 +6,7 @@
 
 .column-header {
   font-weight: bold;
+  text-align: center;
 }
 
 .roll-input {
@@ -14,8 +15,13 @@
   text-transform: uppercase;
 }
 
-.grayscale {
-  filter: grayscale()
+.fainter {
+  filter: grayscale();
+  opacity: 0.5;
+}
+
+.normal-cursor {
+  cursor: default;
 }
 
 .center {

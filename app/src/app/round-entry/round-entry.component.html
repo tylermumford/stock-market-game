@@ -23,7 +23,7 @@
       [formControlName]="playerName">
   </ng-container>
 
-  <span class="grayscale center col2">⏬</span>
+  <span class="fainter normal-cursor center col2" title="(More rows will appear as needed.)">⏬</span>
 
   <button *ngFor="let playerName of players; index as iPlayer"
     (click)="setPlayerBackIn(playerName)"
