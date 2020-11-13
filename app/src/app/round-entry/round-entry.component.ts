@@ -1,5 +1,5 @@
-import { Component, Input, OnDestroy } from '@angular/core';
-import { GameStateService, Roll } from '../game-state.service';
+import { Component, ElementRef, Input, OnDestroy, ViewChildren } from '@angular/core';
+import { GameStateService } from '../game-state.service';
 import { FormGroup, FormArray, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
@@ -12,6 +12,8 @@ import { Subscription } from 'rxjs';
 export class RoundEntryComponent implements OnDestroy {
 
   @Input() round: number
+
+  @ViewChildren('rollInput') rollElements: ElementRef<HTMLInputElement>[]
 
   get pointsAtStake() { return this.game.pointsAtStakeInRound(this.round) }
   get players() { return this.game.players }
@@ -39,6 +41,17 @@ export class RoundEntryComponent implements OnDestroy {
       this.updatePlayersOut(formValue)
     })
     this.subscriptions.push(s)
+  }
+
+  refocusNextEmptyRollInput() {
+    let target: HTMLInputElement
+    this.rollElements.forEach(element => {
+      if (!element.nativeElement.value && !target) {
+        target = element.nativeElement
+      }
+    })
+
+    target.focus()
   }
 
   setPlayerBackIn(playerName: string) {

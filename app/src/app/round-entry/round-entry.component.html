@@ -8,13 +8,14 @@
   <ng-container *ngFor="let _ of diceRolls.controls; index as iRow" formArrayName="diceRolls">
     <span class="cell col1">{{iRow + 1}}</span>
     <div class="roll-input col2" >
-      <input type="text" class="roll-input" [formControlName]="iRow" tabindex="10">
+      <input type="text" class="roll-input" [formControlName]="iRow" tabindex="10" #rollInput>
     </div>
   </ng-container>
   <ng-container *ngFor="let _ of diceRolls.controls; index as iRow">
     <input type="radio"
       *ngFor="let playerName of players; index as iPlayer"
       [value]="iRow"
+      (click)="refocusNextEmptyRollInput()"
 
       [style.grid-row]="1 + iRow + 1"
       [style.grid-column]="2 + iPlayer + 1"
