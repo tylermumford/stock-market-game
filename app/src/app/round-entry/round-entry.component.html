@@ -16,6 +16,7 @@
       *ngFor="let playerName of players; index as iPlayer"
       [value]="iRow"
       (click)="refocusNextEmptyRollInput()"
+      title="Mark that {{playerName}} went out after this roll"
 
       [style.grid-row]="1 + iRow + 1"
       [style.grid-column]="2 + iPlayer + 1"
@@ -28,8 +29,9 @@
     (click)="setPlayerBackIn(playerName)"
     style.grid-row="last"
     [style.grid-column]="2 + iPlayer + 1"
-    title="Go back in">
-    ⤴️
+    title="Undo marking {{playerName}} as out"
+    [disabled]="isPlayerStillIn(playerName)">
+    Back In
   </button>
 
 </section>

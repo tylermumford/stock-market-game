@@ -60,6 +60,10 @@ export class RoundEntryComponent implements OnDestroy {
     player.setValue(null)
   }
 
+  isPlayerStillIn(playerName: string) {
+    return this.game.playerIsIn(playerName, this.round)
+  }
+
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe())
   }
