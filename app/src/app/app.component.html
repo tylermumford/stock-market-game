@@ -2,13 +2,20 @@
   <h1>{{title}}</h1>
 
   <p class="reading-width">
-    <strong>Rules.</strong> Players take turns rolling two dice to add to the score.
-    The first three dice rolls are normal, except sevens are worth 70 points.
-    Dice rolls after the first three are normal, except doubles will double the score, and
-    sevens will now set the score to zero and end the current round. Before any roll, players
-    may "go out" to lock in the points accumulated in the current round. Play continues for
-    twenty rounds.
+    <strong>Rules.</strong> The game lasts twenty rounds, and each round will have many rolls.
+    Players take turns rolling two dice at once to add to the points at stake. Players choose when to
+    "go out" to lock in the points at stake for themselves.
   </p>
+  <div class="reading-width">
+    <p>During each round:</p>
+    <ul>
+      <li>For the first three rolls, doubles don't matter, and sevens are worth 70 points.</li>
+      <li>
+        After that, rolling doubles (D) will double the points at stake.
+        Rolling a seven will end that round, and players who were still in will get zero points for the round.
+      </li>
+    </ul>
+  </div>
 </div>
 
 <game-setup *ngIf="isStatusPreparing" class="overlay"></game-setup>
