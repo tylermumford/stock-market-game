@@ -1,1 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  background: rgb(35, 107, 9);
+  background: linear-gradient(0deg, rgba(35, 107, 9, 1) 0%, rgba(10, 186, 70, 1) 100%);
+  min-height: 100vh;
+}
+
+.overlay {
+  background: white;
+  border-radius: 1em;
+  box-shadow: 0 0 0.5em 0 rgba(0, 128, 128, 0.56);
+  margin: 0.5em;
+  padding: 0.5em 1em;
+}
+
+button, .button-style {
+  padding: 0.4em 0.8em;
+  border-radius: 1em;
+  border: solid 0.5px white;
+}

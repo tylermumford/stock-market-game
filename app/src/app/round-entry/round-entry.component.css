@@ -1,3 +1,7 @@
+:host {
+  display: inline-block;
+}
+
 .control-grid {
   display: grid;
   grid-template-columns: 3em 4em repeat(calc(var(--column-count) - 2), auto);
@@ -46,5 +50,5 @@
 }
 
 .margin-after-round {
-  margin-bottom: 2.5em;
+  margin-bottom: 1em;
 }

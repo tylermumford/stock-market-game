@@ -1,10 +1,12 @@
 <section class="left-section">
-  <h2>Rounds</h2>
+  <div class="overlay">
+    <h2 class="reduced-spacing">Rounds</h2>
+  </div>
   <div *ngFor="let round of twentyRounds">
-    <round-entry [round]="round"></round-entry>
+    <round-entry [round]="round" class="overlay"></round-entry>
   </div>
 </section>
-<section class="floating-section">
+<section class="floating-section overlay">
   <h2 class="mt0">Scores</h2>
   <table class="score-table">
     <tbody>
