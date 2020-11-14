@@ -1,9 +1,10 @@
 .score-table {
   width: 100%;
+  border-spacing: 0;
 }
 
 .score-table td {
-  border: solid 1px gray;
+  border-bottom: solid 1px #ccc;
 }
 
 .floating-section {
@@ -20,6 +21,10 @@
 
 .mt0 {
   margin-top: 0;
+}
+
+.space-at-bottom {
+  margin-bottom: 1em;
 }
 
 @media(min-width: 700px) {
