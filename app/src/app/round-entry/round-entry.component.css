@@ -1,7 +1,12 @@
 .control-grid {
   display: grid;
-  grid-template-columns: repeat(var(--column-count), auto);
+  grid-template-columns: 3em 4em repeat(calc(var(--column-count) - 2), auto);
   gap: 0 1ch;
+}
+
+.limit-height {
+  max-height: 12em;
+  overflow-y: auto;
 }
 
 .column-header {
@@ -34,4 +39,12 @@
 
 .col2 {
   grid-column: 2;
+}
+
+.small-margin-top {
+  margin-top: 0.5em;
+}
+
+.margin-after-round {
+  margin-bottom: 2.5em;
 }
