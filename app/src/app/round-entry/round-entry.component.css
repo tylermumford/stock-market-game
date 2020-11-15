@@ -4,18 +4,24 @@
 
 .control-grid {
   display: grid;
-  grid-template-columns: 3em 4em repeat(calc(var(--column-count) - 2), auto);
+  grid-template-columns: repeat(calc(var(--column-count)), auto);
   gap: 0 1ch;
+  justify-items: center;
 }
 
 .limit-height {
   max-height: 12em;
-  overflow-y: auto;
+  overflow-y: scroll;
+  padding-right: 1em;
 }
 
 .column-header {
+  background: white;
   font-weight: bold;
-  text-align: center;
+  white-space: nowrap;
+
+  position: sticky;
+  top: 0;
 }
 
 .roll-input {
@@ -45,8 +51,9 @@
   grid-column: 2;
 }
 
-.small-margin-top {
-  margin-top: 0.5em;
+.back-in-button {
+  display: inline;
+  white-space: nowrap;
 }
 
 .margin-after-round {
