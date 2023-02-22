@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnDestroy, ViewChildren } from '@angular/core';
 import { GameStateService } from '../game-state.service';
-import { FormGroup, FormArray, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormArray, UntypedFormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 
@@ -18,12 +18,12 @@ export class RoundEntryComponent implements OnDestroy {
   get pointsAtStake() { return this.game.pointsAtStakeInRound(this.round) }
   get players() { return this.game.players }
 
-  roundForm = new FormGroup({
-    diceRolls: new FormArray([])
+  roundForm = new UntypedFormGroup({
+    diceRolls: new UntypedFormArray([])
     // FormControls will be added for each player in the `build` method.
   })
 
-  get diceRolls(): FormArray { return this.roundForm.get('diceRolls') as FormArray }
+  get diceRolls(): UntypedFormArray { return this.roundForm.get('diceRolls') as UntypedFormArray }
 
   get columnCount() {
     const fixedColumnCount = 2
@@ -74,11 +74,11 @@ export class RoundEntryComponent implements OnDestroy {
     for (let i = 0; i < 4; i++) {
       this.expand()
     }
-    this.players.forEach( playerName => this.roundForm.addControl(playerName, new FormControl()) )
+    this.players.forEach( playerName => this.roundForm.addControl(playerName, new UntypedFormControl()) )
   }
 
   private expand() {
-    this.diceRolls.push(new FormControl())
+    this.diceRolls.push(new UntypedFormControl())
   }
 
   private updateRolls(diceRollValues: any[]) {
