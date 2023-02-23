@@ -1,6 +1,9 @@
 build: && clean
   npx ng build
 
+serve: clean
+  npx ng serve
+
 [no-exit-message]
 @clean:
   echo 'cleaning dist dir'
