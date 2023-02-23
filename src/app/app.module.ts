@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { GameSetupComponent } from './game-setup/game-setup.component';
 import { GameUiComponent } from './game-ui/game-ui.component';
 import { RoundEntryComponent } from './round-entry/round-entry.component';
+import { SortScoresPipe } from './sort-scores.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     GameSetupComponent,
     GameUiComponent,
-    RoundEntryComponent
+    RoundEntryComponent,
+    SortScoresPipe
   ],
   imports: [
     BrowserModule,
