@@ -7,7 +7,7 @@ build: && clean
   git clean --force --quiet dist
   git restore dist
 
-prod: clean
+deploy: clean
   npx ng build --configuration production
   git add dist
   git commit -m "(prod build)"
