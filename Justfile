@@ -14,3 +14,5 @@ deploy: clean
   npx ng build --configuration production
   git add dist
   git commit -m "(prod build)"
+
+# Testing and linting aren't working yet, so they're not here yet.
