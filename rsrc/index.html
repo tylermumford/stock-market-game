@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Stock Market Game</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <style>
+    body {
+      /* Should be a duplicate of the styles.css rule, to style the page background sooner. */
+      background: rgb(35, 107, 9);
+      background: linear-gradient(0deg, rgba(35, 107, 9, 1) 0%, rgba(10, 186, 70, 1) 100%);
+      font-family: Quicksand, sans-serif;
+      min-height: 100vh;
+    }
+  </style>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="overlay">
+  <h1>Stock Market Game</h1>
+
+  <p class="reading-width">
+    <strong>Rules.</strong> The game lasts twenty rounds, and each round will have many rolls.
+    Players take turns rolling two dice at once to add to the points at stake. Players choose when to
+    "go out" to lock in the points at stake for themselves.
+  </p>
+  <div class="reading-width">
+    <p>During each round:</p>
+    <ul>
+      <li>For the first three rolls, doubles don't matter, and sevens are worth 70 points.</li>
+      <li>
+        After that, rolling doubles (D) will double the points at stake.
+        Rolling a seven will end that round, and players who were still in will get zero points for the round.
+      </li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>
