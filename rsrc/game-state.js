@@ -1,16 +1,10 @@
-import { Injectable } from '@angular/core'
-import { GameStatus } from './GameStatus'
-
-@Injectable({
-  providedIn: 'root'
-})
-export class GameStateService {
+export class GameState {
 
   get playerCount() { return this._players.length }
   get players() { return this._players }
   get status() { return this._status }
   get scores() { return this._scores }
-  get scoresArray(): {playerName: string, points: number}[] {
+  get scoresArray() {
     const players = this._players.slice()
     const result = []
     players.forEach(playerName => result.push({ playerName: playerName, points: this.scores[playerName] }))
@@ -18,14 +12,13 @@ export class GameStateService {
   }
   get currentRound() { return 1 }
 
-  addPlayer(name: string) {
+  addPlayer(name) {
     this._players.push(name)
     this.scores[name] = 0
   }
 
   startPlaying() {
     if (this.playerCount > 0) {
-      this._status = GameStatus.Playing
       for (let r = 1; r <= 20; r++) {
         this._scoresByRound[r] = {}
         this._players.forEach(playerName => {
@@ -37,7 +30,10 @@ export class GameStateService {
     }
   }
 
-  pointsAtStakeInRound(round: number) {
+  /**
+   * @param round: number
+   */
+  pointsAtStakeInRound(round) {
     const rolls = this._roundRolls[round]
     if (rolls === undefined)
       return 0
@@ -48,15 +44,22 @@ export class GameStateService {
   /**
    * Accepts rolls as strings or numbers, but throws an Error if they are invalid.
    * They must be 'D' or numbers 2–12. Silently ignores nulls and empty strings.
+   * @param round: number
+   * @param rolls: any[]
    */
-  setRollsForRound(round: number, rolls: any[]) {
+  setRollsForRound(round, rolls) {
     rolls = rolls.map(this.tryConvertToRoll)
     rolls.forEach(this.rejectBadRollNumber)
     rolls.slice(0, 3).forEach(this.rejectDs)
     this._roundRolls[round] = rolls
   }
 
-  setPlayerOut(playerName: string, round: number, withRollIndex: number) {
+  /**
+   * @param playerName: string
+   * @param round: number
+   * @param withRollIndex: number
+   */
+  setPlayerOut(playerName, round, withRollIndex) {
     if (withRollIndex > this._roundRolls[round].length - 1)
       throw new Error("Can't go out at that time")
 
@@ -66,23 +69,43 @@ export class GameStateService {
     this.recalculateTotalScores()
   }
 
-  setPlayerBackIn(playerName: string, round: number) {
+  /**
+   * @param playerName: string
+   * @param round: number
+   */
+  setPlayerBackIn(playerName, round) {
     this._scoresByRound[round][playerName] = null
     this.recalculateTotalScores()
   }
 
-  playerIsIn(playerName: string, round: number) {
+  /**
+   * @param playerName: string
+   * @param round: number
+   */
+  playerIsIn(playerName, round) {
     return this._scoresByRound[round][playerName] == null
   }
 
-  private _status = GameStatus.Preparing
-  private _players: string[] = []
-  private _scores: {[player: string]: number} = {}
-  private _scoresByRound: ScoresByRound = {}
+  /** _players: string[] */
+  _players = []
+  /** _scores: {[player: string]: number} */
+  _scores = {}
+  /**
+   * _scoresByRound:
+   *   [round: number]: {[player: string]: number }
+   */
+  _scoresByRound = {}
 
-  private _roundRolls: RoundRolls = {}
+  /**
+   * _roundRolls: {[round: number]: Roll[] }
+   */
+  _roundRolls = {}
 
-  private tryConvertToRoll(rawRoll: unknown): Roll {
+  /**
+   * @param rawRoll: unknown
+   * @returns Roll
+   */
+  tryConvertToRoll(rawRoll) {
     if (rawRoll === 'D') {
       return 'D'
     } else if (rawRoll === null || rawRoll === '') {
@@ -97,30 +120,39 @@ export class GameStateService {
     throw new Error('Invalid roll: Rolls must be D or a whole number.')
   }
 
-  private rejectBadRollNumber(attemptedRoll: Roll) {
+  /**
+   * @param attemptedRoll: Roll
+   */
+  rejectBadRollNumber(attemptedRoll) {
     const r = attemptedRoll
     if (typeof r === 'number' && r < 2 || r > 12) {
       throw new Error(`It's impossible to roll a ${r} with two dice.`)
     }
   }
 
-  private rejectDs(attemptedRoll: Roll) {
+  /**
+   * @param attemptedRoll: Roll
+   */
+  rejectDs(attemptedRoll) {
     if (attemptedRoll === 'D')
       throw new Error('A D is invalid in the first three rolls. Please enter the number instead.')
   }
 
-  private pointsForRolls(rolls: Roll[]) {
+  /**
+   * @param rolls: Roll[]
+   */
+  pointsForRolls(rolls) {
     let sum = 0
     scoring:
     for (let i = 0; i < rolls.length; i++) {
       const roll = rolls[i]
       if (i <= 2) {
-        const rollN = roll as number
+        const rollN = roll // as number, when this was TS
         sum += (rollN === 7) ? 70 : rollN
       } else {
         switch (roll) {
           default:
-            sum += roll as number
+            sum += roll // as number
             break
           case 'D':
             sum *= 2
@@ -135,7 +167,7 @@ export class GameStateService {
     return sum
   }
 
-  private recalculateTotalScores() {
+  recalculateTotalScores() {
     this._scores = {}
     this._players.forEach(playerName => this._scores[playerName] = 0)
 
@@ -148,6 +180,7 @@ export class GameStateService {
   }
 }
 
+/* Old TypeScript types
 export type Roll = number | 'D'
 
 interface RoundRolls {
@@ -159,3 +192,4 @@ interface ScoresByRound {
     [player: string]: number
   }
 }
+*/

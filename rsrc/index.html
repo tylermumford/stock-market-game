@@ -38,5 +38,10 @@
     </ul>
   </div>
 </div>
+
+<script type="module">
+  let { GameState } = await import("/game-state.js");
+  window.Game = new GameState();
+</script>
 </body>
 </html>
