@@ -1,3 +1,6 @@
+/**
+ * Keep track of a Stock Market game. Players and scores.
+ */
 export class GameState {
 
   get playerCount() { return this._players.length }

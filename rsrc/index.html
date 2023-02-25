@@ -39,9 +39,14 @@
   </div>
 </div>
 
+<div id="player-setup" class="overlay inline-block"></div>
+
 <script type="module">
   let { GameState } = await import("/game-state.js");
   window.Game = new GameState();
+
+  let PlayerSetup = await import("/player-setup.js");
+  PlayerSetup.init("#player-setup");
 </script>
 </body>
 </html>

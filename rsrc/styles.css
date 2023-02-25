@@ -18,3 +18,7 @@ button, .button-style {
   border-radius: 1em;
   border: solid 0.5px white;
 }
+
+.inline-block {
+  display: inline-block;
+}
