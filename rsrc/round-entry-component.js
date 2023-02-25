@@ -1,3 +1,6 @@
+// Alpine.js is used in this component.
+// Docs: https://alpinejs.dev/start-here
+
 class RoundEntry extends HTMLElement {
   connectedCallback() {
     this.round = this.dataset.round;
@@ -10,6 +13,7 @@ class RoundEntry extends HTMLElement {
   createReactiveData() {
     return {
       round: this.round,
+      diceRolls: ['', '', ''],
       get pointsAtStake() {
         return window.Game.pointsAtStakeInRound(this.round);
       },
@@ -18,9 +22,12 @@ class RoundEntry extends HTMLElement {
         const dynamicColumnCount = window.Game.players.length
         return fixedColumnCount + dynamicColumnCount;
       },
+      /** Remember, players are just names. */
+      get players() {
+        return window.Game.players;
+      }
     }
   }
-
 
   render() {
     this.innerHTML =
@@ -35,29 +42,38 @@ const html = `
   Round <span x-text="round"></span> — <span x-text="pointsAtStake"></span> points at stake
 </h3>
 
-<section class="control-grid limit-height" x-bind:style="{'--columnCount': columnCount}">
+<section class="control-grid limit-height" x-bind:style="'--column-count: ' + columnCount">
 
   <span class="column-header">Roll #</span>
   <span class="column-header center">Rolled</span>
-  <span class="column-header" *ngFor="let playerName of players">{{playerName}}</span>
+  <template x-for="player in players">
+  <span class="column-header" x-text="player"></span>
+  </template>
 
-  <ng-container *ngFor="let _ of diceRolls.controls; index as iRow" formArrayName="diceRolls">
-    <span class="cell col1">{{iRow + 1}}</span>
+  <template x-for="(_, index) in diceRolls">
+    <span class="cell col1" x-text="index + 1"></span>
+  </template>
+
+  <template x-for="(_, index) in diceRolls">
     <div class="roll-input col2" >
       <input type="text" class="roll-input" [formControlName]="iRow" tabindex="10" #rollInput>
     </div>
-  </ng-container>
-  <ng-container *ngFor="let _ of diceRolls.controls; index as iRow">
-    <input type="radio"
-      *ngFor="let playerName of players; index as iPlayer"
-      [value]="iRow"
-      (click)="refocusNextEmptyRollInput()"
-      title="Mark that {{playerName}} went out after this roll"
+  </template>
 
-      [style.grid-row]="1 + iRow + 1"
-      [style.grid-column]="2 + iPlayer + 1"
-      [formControlName]="playerName">
-  </ng-container>
+  <template x-for="(_, iRow) in diceRolls">
+    <template x-for="(playerName, iPlayer) in players">
+      <input type="radio"
+        [value]="iRow"
+        (click)="refocusNextEmptyRollInput()"
+        title="Mark that {{playerName}} went out after this roll"
+
+        x-bind:style="{
+          'grid-row': 1 + iRow + 1,
+          'grid-column': 2 + iPlayer + 1
+        }"
+        [formControlName]="playerName">
+    </template>
+  </template>
 
   <span class="fainter normal-cursor center col2" title="(More rows will appear as needed.)">⏬</span>
 
