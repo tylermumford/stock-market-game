@@ -42,6 +42,50 @@ const html = `
   Round <span x-text="round"></span> — <span x-text="pointsAtStake"></span> points at stake
 </h3>
 
+<table>
+<thead>
+  <tr>
+  <th>Roll #</th>
+  <th>Rolled</th>
+  <template x-for="player in players">
+  <th x-text="player"></th>
+  </template>
+  </tr>
+</thead>
+<tbody>
+<template x-for="(_, index) in diceRolls">
+  <tr>
+    <td x-text="index + 1"</td>
+    <td><input type="text" class="roll-input" tabIndex="10"/></td>
+    <template x-for="player in players">
+    <td>
+      <input type="radio"
+        x-bind:title="'Mark that '+player+' went out after this roll'"
+      >
+    </td>
+    </template>
+  </tr>
+</template>
+  <tr>
+  <td><!--this space intentionally left blank--></td>
+  <td>
+    <span class="fainter normal-cursor center col2" title="(More rows will appear as needed.)">⏬</span>
+  </td>
+  <template x-for="player in players">
+  <td>
+    <button
+      (click)="setPlayerBackIn(playerName)"
+      class="back-in-button"
+      x-bind:title="'Undo marking '+player+' as out'"
+      [disabled]="isPlayerStillIn(playerName)">
+      Back In
+    </button>
+  </td>
+  </template>
+  </tr>
+</table>
+
+<!--
 <section class="control-grid limit-height" x-bind:style="'--column-count: ' + columnCount">
 
   <span class="column-header">Roll #</span>
@@ -90,6 +134,7 @@ const html = `
 </section>
 
 <p *ngIf="errorMessage">{{errorMessage}}</p>
+-->
 
 <div class="margin-after-round"></div>
 
