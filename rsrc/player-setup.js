@@ -10,6 +10,24 @@ function handleEnterKey(event) {
   tryStartGame();
 }
 
+function tryStartGame() {
+  let inputs = document.querySelectorAll("input");
+
+  inputs.forEach(element => {
+    const playerName = element.value
+    if (playerName) {
+      window.Game.addPlayer(playerName)
+    }
+  })
+
+  try {
+    window.Game.startPlaying()
+    alert(`Game starting with ${window.Game.playerCount} players.`)
+  } catch (e) {
+    alert(e)
+  }
+}
+
 const html = `
 <h2>Game Setup</h2>
 
@@ -44,5 +62,5 @@ const html = `
   <label>Player 10: <input type="text"></label>
 </p>
 
-<button (click)="tryStartGame()">Start game</button>
+<button id="start-game">Start game</button>
 `
