@@ -40,6 +40,7 @@
 </div>
 
 <div id="player-setup" class="overlay inline-block"></div>
+<div id="game"></div>
 
 <script type="module">
   let { GameState } = await import("/game-state.js");
@@ -48,9 +49,12 @@
   let PlayerSetup = await import("/player-setup.js");
   PlayerSetup.init("#player-setup");
 
-  // This event can come from the player setup module.
-  document.addEventListener("startGame", e => {
-    console.log("I will start the game.");
+  // This event comes from the player setup module.
+  document.addEventListener("startGame", async e => {
+    document.getElementById("player-setup").style.display = "none";
+
+    let GameUI = await import("/game-ui.js");
+    GameUI.init("#game");
   });
 </script>
 </body>
