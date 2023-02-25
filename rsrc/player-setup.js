@@ -1,8 +1,10 @@
 export function init(selector) {
   let element = document.querySelector(selector);
   element.innerHTML = html;
+  element.addEventListener("keyup", handleEnterKey);
 
-  element.addEventListener("keyup", handleEnterKey)
+  let button = document.querySelector("#start-game");
+  button.addEventListener("click", tryStartGame);
 }
 
 function handleEnterKey(event) {
@@ -23,6 +25,7 @@ function tryStartGame() {
   try {
     window.Game.startPlaying()
     alert(`Game starting with ${window.Game.playerCount} players.`)
+    document.dispatchEvent(new Event("startGame"));
   } catch (e) {
     alert(e)
   }

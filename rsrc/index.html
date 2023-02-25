@@ -47,6 +47,11 @@
 
   let PlayerSetup = await import("/player-setup.js");
   PlayerSetup.init("#player-setup");
+
+  // This event can come from the player setup module.
+  document.addEventListener("startGame", e => {
+    console.log("I will start the game.");
+  });
 </script>
 </body>
 </html>
