@@ -5,6 +5,7 @@
   <title>Stock Market Game</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="auto">
   <style>
     body {
       /* Should be a duplicate of the styles.css rule, to style the page background sooner. */
@@ -42,6 +43,9 @@
 <div id="player-setup" class="overlay inline-block"></div>
 <div id="game"></div>
 
+<!-- Experimental. I want this to help with the intricate reactivity of the round entry component. -->
+<script src="//unpkg.com/alpinejs" defer></script>
+
 <script type="module">
   let { GameState } = await import("/game-state.js");
   window.Game = new GameState();
@@ -57,5 +61,8 @@
     GameUI.init("#game");
   });
 </script>
+
+<script type="module" src="/round-entry-component.js"></script>
+
 </body>
 </html>

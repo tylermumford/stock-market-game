@@ -5,6 +5,10 @@ body {
   min-height: 100vh;
 }
 
+round-entry {
+  display: inline-block;
+}
+
 .overlay {
   background: white;
   border-radius: 1em;
@@ -18,6 +22,53 @@ button, .button-style {
   border-radius: 1em;
   border: solid 0.5px white;
 }
+
+
+/* game ui, buggy
+  .score-table {
+    width: 100%;
+    border-spacing: 0;
+  }
+
+  .score-table td {
+    border-bottom: solid 1px #ccc;
+  }
+
+  .floating-section {
+    bottom: 0.5em;
+    box-sizing: border-box;
+    margin-top: 1em;
+    position: sticky;
+    width: 100%;
+  }
+
+  .reduced-spacing {
+    margin: 0.3em 0;
+  }
+
+  .mt0 {
+    margin-top: 0;
+  }
+
+  .space-at-bottom {
+    margin-bottom: 1em;
+  }
+
+  @media(min-width: 700px) {
+    .left-section {
+      float: left;
+    }
+    .floating-section {
+      bottom: unset;
+      margin-top: 0;
+      min-width: 275px;
+      position: fixed;
+      right: 0.5em;
+      width: unset;
+    }
+  }
+*/
+
 
 .inline-block {
   display: inline-block;
