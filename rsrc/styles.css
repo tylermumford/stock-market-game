@@ -69,6 +69,66 @@ button, .button-style {
   }
 */
 
+@layer round-entry {
+  .control-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--column-count), auto);
+    gap: 0 1ch;
+    justify-items: center;
+  }
+
+  .limit-height {
+    max-height: 12em;
+    overflow-y: scroll;
+    padding-right: 1em;
+  }
+
+  .column-header {
+    background: white;
+    font-weight: bold;
+    white-space: nowrap;
+
+    position: sticky;
+    top: 0;
+  }
+
+  .roll-input {
+    max-width: 8ch;
+    place-self: center;
+    text-transform: uppercase;
+  }
+
+  .fainter {
+    filter: grayscale();
+    opacity: 0.5;
+  }
+
+  .normal-cursor {
+    cursor: default;
+  }
+
+  .center {
+    text-align: center;
+  }
+
+  .col1 {
+    grid-column: 1;
+  }
+
+  .col2 {
+    grid-column: 2;
+  }
+
+  .back-in-button {
+    display: inline;
+    white-space: nowrap;
+  }
+
+  .margin-after-round {
+    margin-bottom: 1em;
+  }
+
+}
 
 .inline-block {
   display: inline-block;
