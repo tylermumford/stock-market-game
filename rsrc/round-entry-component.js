@@ -31,14 +31,10 @@ class RoundEntry extends HTMLElement {
 
       // Updates the game state and properties of the tracked object.
       update(diceRolls) {
-        console.log("update", diceRolls)
-
         let copy = diceRolls.slice();
         copy = copy
           .filter(r => !!r)
           .map(r => r.toUpperCase());
-
-        console.log("update with", copy)
 
         try {
           window.Game.setRollsForRound(this.round, copy)
@@ -63,8 +59,6 @@ const html = `
 <h3>
   Round <span x-text="round"></span> — <span x-text="pointsAtStake"></span> points at stake
 </h3>
-
-<p x-text="JSON.stringify(diceRolls)"></p>
 
 <table x-ref="table">
 
