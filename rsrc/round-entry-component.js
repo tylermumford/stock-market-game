@@ -31,6 +31,8 @@ class RoundEntry extends HTMLElement {
 
       // Updates the game state and properties of the tracked object.
       update(diceRolls) {
+        this.autoExpand();
+
         let copy = diceRolls.slice();
         copy = copy
           .filter(r => !!r)
@@ -43,6 +45,17 @@ class RoundEntry extends HTMLElement {
         } catch (error) {
           this.errorMessage = error.message;
         }
+      },
+
+      // Adds a roll row if all are full, unless last roll is 7.
+      autoExpand() {
+        let isAllFull = this.diceRolls.every(r => !!r);
+        let lastIsSeven = this.diceRolls[this.diceRolls.length - 1] === "7"
+        if (!isAllFull || lastIsSeven) {
+          return;
+        }
+
+        this.diceRolls.push('');
       }
     }
   }
