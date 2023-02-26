@@ -43,46 +43,50 @@ const html = `
 </h3>
 
 <table>
+
 <thead>
   <tr>
   <th>Roll #</th>
   <th>Rolled</th>
-  <template x-for="player in players">
+<template x-for="player in players">
   <th x-text="player"></th>
-  </template>
+</template>
   </tr>
 </thead>
+
 <tbody>
 <template x-for="(_, index) in diceRolls">
   <tr>
     <td x-text="index + 1"</td>
     <td><input type="text" class="roll-input" tabIndex="10"/></td>
-    <template x-for="player in players">
+  <template x-for="player in players">
     <td>
       <input type="radio"
         x-bind:title="'Mark that '+player+' went out after this roll'"
       >
     </td>
-    </template>
+  </template>
   </tr>
 </template>
   <tr>
-  <td><!--this space intentionally left blank--></td>
-  <td>
-    <span class="fainter normal-cursor center col2" title="(More rows will appear as needed.)">⏬</span>
-  </td>
+    <td><!--this space intentionally left blank--></td>
+    <td>
+      <span class="fainter normal-cursor center col2" title="(More rows will appear as needed.)">⏬</span>
+    </td>
   <template x-for="player in players">
-  <td>
-    <button
-      (click)="setPlayerBackIn(playerName)"
-      class="back-in-button"
-      x-bind:title="'Undo marking '+player+' as out'"
-      [disabled]="isPlayerStillIn(playerName)">
-      Back In
-    </button>
-  </td>
+    <td>
+      <button
+        (click)="setPlayerBackIn(playerName)"
+        class="back-in-button"
+        x-bind:title="'Undo marking '+player+' as out'"
+        [disabled]="isPlayerStillIn(playerName)">
+        Back In
+      </button>
+    </td>
   </template>
   </tr>
+</tbody>
+
 </table>
 
 <!--
