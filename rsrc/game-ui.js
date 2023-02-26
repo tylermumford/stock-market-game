@@ -8,6 +8,10 @@ function templatize() {
   for (let i = 1; i <= 20; i++) {
     roundEntries.push(`
       <div>
+      <!--
+        Div keeps each round on its own "line"
+        But it's a bit hacky.
+      -->
       <round-entry data-round=${i} class="overlay" x-data></round-entry>
       </div>
   `);
@@ -32,10 +36,13 @@ const html = `
   <h2 class="mt0">Scores</h2>
   <table class="score-table">
     <tbody>
-      <tr *ngFor="let score of scores | sortScores">
-        <td>{{score.playerName}}</td>
-        <td>{{score.points}} points</td>
+    <!-- todo: sort -->
+    <template x-for="score in $store.Game.scoresArray">
+      <tr>
+        <td x-text="score.playerName"></td>
+        <td x-text="score.points + ' points'"></td>
       </tr>
+    </template>
     </tbody>
   </table>
   <div class="space-at-bottom"></div>
