@@ -14,6 +14,9 @@ class RoundEntry extends HTMLElement {
     return {
       round: this.round,
       diceRolls: ['', '', ''],
+      // keys are player names, values are roll numbers
+      // jane: null means jane isn't out yet
+      whenOut: {Jane: null, Sarah: null, Tyler: null},
       errorMessage: '',
       pointsAtStake: 0,
 
@@ -30,7 +33,7 @@ class RoundEntry extends HTMLElement {
       },
 
       // Updates the game state and properties of the tracked object.
-      update(diceRolls) {
+      updateRolls(diceRolls) {
         this.autoExpand();
 
         let copy = diceRolls.slice();
@@ -51,11 +54,25 @@ class RoundEntry extends HTMLElement {
       autoExpand() {
         let isAllFull = this.diceRolls.every(r => !!r);
         let lastIsSeven = this.diceRolls[this.diceRolls.length - 1] === "7"
-        if (!isAllFull || lastIsSeven) {
-          return;
-        }
+        let isPastRollThree = this.diceRolls.length > 3;
 
-        this.diceRolls.push('');
+        if (isAllFull && !(isPastRollThree && lastIsSeven)) {
+          this.diceRolls.push('');
+        }
+      },
+
+      // Handles players going out/back in
+      updateScores() {
+        window.Game.players.forEach(playerName => {
+          const roundPlayerWentOut = this.whenOut[playerName];
+          const isPlayerStillIn = roundPlayerWentOut === null;
+
+          if (isPlayerStillIn) {
+            window.Game.setPlayerBackIn(playerName, this.round)
+          } else {
+            window.Game.setPlayerOut(playerName, this.round, roundPlayerWentOut)
+          }
+        })
       }
     }
   }
@@ -72,6 +89,8 @@ const html = `
 <h3>
   Round <span x-text="round"></span> — <span x-text="pointsAtStake"></span> points at stake
 </h3>
+
+<p x-text="JSON.stringify(whenOut)"></p>
 
 <table x-ref="table">
 
@@ -100,6 +119,9 @@ const html = `
     <td>
       <input type="radio"
         x-bind:title="'Mark that '+player+' went out after this roll'"
+        x-bind:value="index"
+        x-bind:name="'round:'+round+'_player:'+player"
+        x-model.number="whenOut[player]"
       >
     </td>
   </template>
@@ -113,10 +135,10 @@ const html = `
   <template x-for="player in players">
     <td>
       <button
-        (click)="setPlayerBackIn(playerName)"
+        x-on:click="whenOut[player] = null"
         class="back-in-button"
         x-bind:title="'Undo marking '+player+' as out'"
-        [disabled]="isPlayerStillIn(playerName)">
+        x-bind:disabled="whenOut[player] === null">
         Back In
       </button>
     </td>
@@ -126,7 +148,8 @@ const html = `
 
 </table>
 
-<template x-init="$watch('diceRolls', () => update(diceRolls))"></template>
+<template x-init="$watch('diceRolls', () => updateRolls(diceRolls))"></template>
+<template x-init="$watch('whenOut', () => updateScores())"
 
 <p
   x-show="errorMessage"
