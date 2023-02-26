@@ -14,6 +14,8 @@ class RoundEntry extends HTMLElement {
     return {
       round: this.round,
       diceRolls: ['', '', ''],
+      errorMessage: '',
+
       get pointsAtStake() {
         return window.Game.pointsAtStakeInRound(this.round);
       },
@@ -25,7 +27,7 @@ class RoundEntry extends HTMLElement {
       /** Remember, players are just names. */
       get players() {
         return window.Game.players;
-      }
+      },
     }
   }
 
@@ -41,6 +43,8 @@ const html = `
 <h3>
   Round <span x-text="round"></span> — <span x-text="pointsAtStake"></span> points at stake
 </h3>
+
+<p x-text="JSON.stringify(diceRolls)"></p>
 
 <table>
 
@@ -58,8 +62,14 @@ const html = `
 <template x-for="(_, index) in diceRolls">
   <tr>
     <td x-text="index + 1"</td>
-    <td><input type="text" class="roll-input" tabIndex="10"/></td>
-  <template x-for="player in players">
+    <td>
+      <input type="text"
+        class="roll-input"
+        tabIndex="10"
+        x-model="diceRolls[index]"
+      />
+    </td>
+  <template x-for="(player, i) in players">
     <td>
       <input type="radio"
         x-bind:title="'Mark that '+player+' went out after this roll'"
@@ -89,18 +99,10 @@ const html = `
 
 </table>
 
+<p x-if="errorMessage" x-text="errorMessage"></p>
+
 <!--
 <section class="control-grid limit-height" x-bind:style="'--column-count: ' + columnCount">
-
-  <span class="column-header">Roll #</span>
-  <span class="column-header center">Rolled</span>
-  <template x-for="player in players">
-  <span class="column-header" x-text="player"></span>
-  </template>
-
-  <template x-for="(_, index) in diceRolls">
-    <span class="cell col1" x-text="index + 1"></span>
-  </template>
 
   <template x-for="(_, index) in diceRolls">
     <div class="roll-input col2" >
