@@ -15,19 +15,39 @@ class RoundEntry extends HTMLElement {
       round: this.round,
       diceRolls: ['', '', ''],
       errorMessage: '',
+      pointsAtStake: 0,
 
-      get pointsAtStake() {
-        return window.Game.pointsAtStakeInRound(this.round);
-      },
+      // Hey, future me: Alpine doesn't automatically
+      // make these getters reactive. Heads up.
       get columnCount() {
         const fixedColumnCount = 2
         const dynamicColumnCount = window.Game.players.length
         return fixedColumnCount + dynamicColumnCount;
       },
-      /** Remember, players are just names. */
+      // Remember, players are just names.
       get players() {
         return window.Game.players;
       },
+
+      // Updates the game state and properties of the tracked object.
+      update(diceRolls) {
+        console.log("update", diceRolls)
+
+        let copy = diceRolls.slice();
+        copy = copy
+          .filter(r => !!r)
+          .map(r => r.toUpperCase());
+
+        console.log("update with", copy)
+
+        try {
+          window.Game.setRollsForRound(this.round, copy)
+          this. pointsAtStake = window.Game.pointsAtStakeInRound(this.round);
+          this.errorMessage = "";
+        } catch (error) {
+          this.errorMessage = error.message;
+        }
+      }
     }
   }
 
@@ -46,7 +66,7 @@ const html = `
 
 <p x-text="JSON.stringify(diceRolls)"></p>
 
-<table>
+<table x-ref="table">
 
 <thead>
   <tr>
@@ -99,7 +119,13 @@ const html = `
 
 </table>
 
-<p x-if="errorMessage" x-text="errorMessage"></p>
+<template x-init="$watch('diceRolls', () => update(diceRolls))"></template>
+
+<p
+  x-show="errorMessage"
+  x-text="errorMessage"
+  x-bind:style="'max-width:' + $refs.table.offsetWidth + 'px'"
+></p>
 
 <!--
 <section class="control-grid limit-height" x-bind:style="'--column-count: ' + columnCount">

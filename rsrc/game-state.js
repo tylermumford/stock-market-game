@@ -138,7 +138,7 @@ export class GameState {
    */
   rejectDs(attemptedRoll) {
     if (attemptedRoll === 'D')
-      throw new Error('A D is invalid in the first three rolls. Please enter the number instead.')
+      throw new Error('Doubles don\'t count in the first three rolls. Please enter the number instead.')
   }
 
   /**
