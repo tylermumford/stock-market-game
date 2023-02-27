@@ -139,7 +139,7 @@ const html = `
         x-on:click="whenOut[player] = null"
         class="back-in-button"
         x-bind:title="'Undo marking '+player+' as out'"
-        x-bind:disabled="whenOut[player] === null">
+        x-bind:disabled="whenOut[player] == null">
         Back In
       </button>
     </td>
