@@ -149,7 +149,7 @@ const html = `
 </table>
 
 <template x-init="$watch('diceRolls', () => updateRolls(diceRolls))"></template>
-<template x-init="$watch('whenOut', () => updateScores())"
+<template x-init="$watch('whenOut', () => updateScores())"></template>
 
 <p
   x-show="errorMessage"
