@@ -114,7 +114,7 @@ const html = `
       />
     </td>
   <template x-for="(player, i) in players">
-    <td>
+    <td class="center">
       <input type="radio"
         x-bind:title="'Mark that '+player+' went out after this roll'"
         x-bind:value="index"
@@ -127,7 +127,7 @@ const html = `
 </template>
   <tr>
     <td><!--this space intentionally left blank--></td>
-    <td>
+    <td class="center">
       <span class="fainter normal-cursor center col2" title="(More rows will appear as needed.)">⏬</span>
     </td>
   <template x-for="player in players">
