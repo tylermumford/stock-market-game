@@ -4,6 +4,10 @@ round-entry {
   display: inline-block;
 }
 
+.reading-width {
+  max-width: 75ch;
+}
+
 .overlay {
   background: white;
   border-radius: 1em;
