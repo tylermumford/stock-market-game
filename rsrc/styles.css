@@ -67,6 +67,18 @@ button, .button-style {
   }
 
 @layer round-entry {
+  round-entry table {
+    border-spacing: 4px;
+  }
+  round-entry tbody >  tr {
+    outline: solid 1px transparent;
+    transition: outline-color 0.3s;
+    border-radius: 2px;
+  }
+  round-entry tbody > tr:hover {
+    outline-color: darkgray;
+  }
+
   .control-grid {
     display: grid;
     grid-template-columns: repeat(var(--column-count), auto);

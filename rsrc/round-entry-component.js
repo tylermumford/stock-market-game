@@ -125,13 +125,16 @@ const html = `
   </template>
   </tr>
 </template>
+</tbody>
+
+<tfoot>
   <tr>
     <td><!--this space intentionally left blank--></td>
     <td class="center">
       <span class="fainter normal-cursor center col2" title="(More rows will appear as needed.)">⏬</span>
     </td>
   <template x-for="player in players">
-    <td>
+    <td class="center">
       <button
         x-on:click="whenOut[player] = null"
         class="back-in-button"
@@ -142,8 +145,7 @@ const html = `
     </td>
   </template>
   </tr>
-</tbody>
-
+</tfoot>
 </table>
 
 <template x-init="$watch('diceRolls', () => updateRolls(diceRolls))"></template>
