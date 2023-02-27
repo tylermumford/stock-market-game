@@ -90,8 +90,6 @@ const html = `
   Round <span x-text="round"></span> — <span x-text="pointsAtStake"></span> points at stake
 </h3>
 
-<p x-text="JSON.stringify(whenOut)"></p>
-
 <table x-ref="table">
 
 <thead>

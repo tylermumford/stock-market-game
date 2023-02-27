@@ -48,10 +48,11 @@
 
 <script type="module">
   let { GameState } = await import("/game-state.js");
-  window.Game = new GameState();
 
   // I'm not sure if I want to do this, but I think I do.
-  Alpine.store('Game', window.Game);
+  Alpine.store('Game', new GameState());
+
+  window.Game = Alpine.store('Game');
 
   let PlayerSetup = await import("/player-setup.js");
   PlayerSetup.init("#player-setup");

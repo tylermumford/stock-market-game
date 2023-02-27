@@ -9,7 +9,7 @@ function templatize() {
     roundEntries.push(`
       <div>
       <!--
-        Div keeps each round on its own "line"
+        The div element keeps each round on its own "line"
         But it's a bit hacky.
       -->
       <round-entry data-round=${i} class="overlay" x-data></round-entry>
