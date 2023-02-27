@@ -6,13 +6,13 @@ export function init(selector) {
   let button = document.querySelector("#start-game");
   button.addEventListener("click", tryStartGame);
 
-  // testing code to quickly reach the game ui
-  setTimeout(() => {
-    window.Game.addPlayer("Jane")
-    window.Game.addPlayer("Sarah")
-    window.Game.addPlayer("Tyler")
-    tryStartGame()
-  }, 250)
+  // // testing code to quickly reach the game ui
+  // setTimeout(() => {
+  //   window.Game.addPlayer("Jane")
+  //   window.Game.addPlayer("Sarah")
+  //   window.Game.addPlayer("Tyler")
+  //   tryStartGame()
+  // }, 250)
 }
 
 function handleEnterKey(event) {
