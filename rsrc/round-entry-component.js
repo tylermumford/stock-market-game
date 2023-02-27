@@ -157,47 +157,6 @@ const html = `
   x-bind:style="'max-width:' + $refs.table.offsetWidth + 'px'"
 ></p>
 
-<!--
-<section class="control-grid limit-height" x-bind:style="'--column-count: ' + columnCount">
-
-  <template x-for="(_, index) in diceRolls">
-    <div class="roll-input col2" >
-      <input type="text" class="roll-input" [formControlName]="iRow" tabindex="10" #rollInput>
-    </div>
-  </template>
-
-  <template x-for="(_, iRow) in diceRolls">
-    <template x-for="(playerName, iPlayer) in players">
-      <input type="radio"
-        [value]="iRow"
-        (click)="refocusNextEmptyRollInput()"
-        title="Mark that {{playerName}} went out after this roll"
-
-        x-bind:style="{
-          'grid-row': 1 + iRow + 1,
-          'grid-column': 2 + iPlayer + 1
-        }"
-        [formControlName]="playerName">
-    </template>
-  </template>
-
-  <span class="fainter normal-cursor center col2" title="(More rows will appear as needed.)">⏬</span>
-
-  <button *ngFor="let playerName of players; index as iPlayer"
-    (click)="setPlayerBackIn(playerName)"
-    class="back-in-button"
-    style.grid-row="last"
-    [style.grid-column]="2 + iPlayer + 1"
-    title="Undo marking {{playerName}} as out"
-    [disabled]="isPlayerStillIn(playerName)">
-    Back In
-  </button>
-
-</section>
-
-<p *ngIf="errorMessage">{{errorMessage}}</p>
--->
-
 <div class="margin-after-round"></div>
 
 </div>
