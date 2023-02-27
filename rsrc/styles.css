@@ -1,9 +1,4 @@
-body {
-  background: rgb(35, 107, 9);
-  background: linear-gradient(0deg, rgba(35, 107, 9, 1) 0%, rgba(10, 186, 70, 1) 100%);
-  font-family: Quicksand, sans-serif;
-  min-height: 100vh;
-}
+/* body tag is styled in index.html directly */
 
 round-entry {
   display: inline-block;
