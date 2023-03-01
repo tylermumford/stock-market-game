@@ -36,7 +36,6 @@ const html = `
   <h2 class="mt0">Scores</h2>
   <table class="score-table">
     <tbody>
-    <!-- todo: sort -->
     <template x-for="score in $store.Game.scoresArray">
       <tr>
         <td x-text="score.playerName"></td>

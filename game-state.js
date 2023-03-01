@@ -7,10 +7,13 @@ export class GameState {
   get players() { return this._players }
   get status() { return this._status }
   get scores() { return this._scores }
+
+  /** Scores sorted highest first. */
   get scoresArray() {
     const players = this._players.slice()
     const result = []
     players.forEach(playerName => result.push({ playerName: playerName, points: this.scores[playerName] }))
+    result.sort((a, b) => b.points - a.points);
     return result
   }
   get currentRound() { return 1 }
