@@ -5,8 +5,10 @@ import {
   it,
   beforeEach,
 } from "https://deno.land/std@0.178.0/testing/bdd.ts";
-import { expect } from 'npm:jasmine-core';
+
 import { GameState } from './game-state.js'
+
+import { expect } from "https://deno.land/x/expect@v0.3.0/expect.ts";
 
 describe('GameState class', () => {
   let service;
@@ -22,10 +24,6 @@ describe('GameState class', () => {
 
     it('should start with no players', () => {
       expect(service.playerCount).toBe(0)
-    })
-
-    it('should start in the "Preparing" status', () => {
-      expect(service.status).toBe(GameStatus.Preparing)
     })
 
     it('should allow a player to be added', () => {
@@ -47,7 +45,6 @@ describe('GameState class', () => {
     it('should not allow the game to be started with 0 players', () => {
       expect(service.playerCount).toBe(0)
       expect(service.startPlaying).toThrow()
-      expect(service.status).toBe(GameStatus.Preparing)
     })
 
     it('should allow the game to be started with at least one player', () => {
@@ -55,7 +52,6 @@ describe('GameState class', () => {
         service.addPlayer('Player 1')
         service.startPlaying()
       }).not.toThrow()
-      expect(service.status).toBe(GameStatus.Playing)
     })
   })
 
@@ -174,7 +170,7 @@ describe('GameState class', () => {
 
     describe('Players going out', () => {
       it('should report that players start "in"', () => {
-        expect(service.playerIsIn(p1, 1)).toBeTrue();
+        expect(service.playerIsIn(p1, 1)).toBe(true);
       })
 
       it('should reject going out "in the future"', () => {
@@ -193,7 +189,7 @@ describe('GameState class', () => {
         service.setRollsForRound(1, [3, 5, 9])
         service.setPlayerOut(p1, 1, 2)
 
-        expect(service.playerIsIn(p1, 1)).toBeFalse()
+        expect(service.playerIsIn(p1, 1)).toBe(false)
       })
 
       it('should score a player after they go out', () => {

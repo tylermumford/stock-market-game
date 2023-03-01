@@ -5,7 +5,6 @@ export class GameState {
 
   get playerCount() { return this._players.length }
   get players() { return this._players }
-  get status() { return this._status }
   get scores() { return this._scores }
 
   /** Scores sorted highest first. */
