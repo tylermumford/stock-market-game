@@ -1,28 +1,33 @@
 /* body tag is styled in index.html directly */
 
-round-entry {
-  display: inline-block;
+/*
+ * Check the layers of the stylesheet
+ * and add to the appropriate one.
+ */
+
+/* General classes, not component-specific. */
+@layer general {
+  .reading-width {
+    max-width: 75ch;
+  }
+
+  .overlay {
+    background: white;
+    border-radius: 1em;
+    box-shadow: 0 0 0.5em 0 rgba(0, 128, 128, 0.56);
+    margin: 0.5em;
+    padding: 0.5em 1em;
+  }
+
+  button, .button-style {
+    padding: 0.4em 0.8em;
+    border-radius: 1em;
+    border: solid 0.5px white;
+  }
 }
 
-.reading-width {
-  max-width: 75ch;
-}
-
-.overlay {
-  background: white;
-  border-radius: 1em;
-  box-shadow: 0 0 0.5em 0 rgba(0, 128, 128, 0.56);
-  margin: 0.5em;
-  padding: 0.5em 1em;
-}
-
-button, .button-style {
-  padding: 0.4em 0.8em;
-  border-radius: 1em;
-  border: solid 0.5px white;
-}
-
-
+/* The floating scores overlay. */
+@layer scores {
   .score-table {
     width: 100%;
     border-spacing: 0;
@@ -40,18 +45,6 @@ button, .button-style {
     width: 100%;
   }
 
-  .reduced-spacing {
-    margin: 0.3em 0;
-  }
-
-  .mt0 {
-    margin-top: 0;
-  }
-
-  .space-at-bottom {
-    margin-bottom: 1em;
-  }
-
   @media(min-width: 700px) {
     .left-section {
       float: left;
@@ -65,16 +58,24 @@ button, .button-style {
       width: unset;
     }
   }
+}
 
+/* The controls for entering rolls & players going out. */
 @layer round-entry {
+  round-entry {
+    display: inline-block;
+  }
+
   round-entry table {
     border-spacing: 4px;
   }
+
   round-entry tbody >  tr {
     outline: solid 1px transparent;
     transition: outline-color 0.3s;
     border-radius: 2px;
   }
+
   round-entry tbody > tr:hover {
     outline-color: darkgray;
   }
@@ -139,6 +140,22 @@ button, .button-style {
 
 }
 
-.inline-block {
-  display: inline-block;
+/* General utilities that should override earlier layers. */
+@layer utilities {
+  .inline-block {
+    display: inline-block;
+  }
+
+  .reduced-spacing {
+    margin: 0.3em 0;
+  }
+
+  .mt0 {
+    margin-top: 0;
+  }
+
+  .space-at-bottom {
+    margin-bottom: 1em;
+  }
+
 }
